@@ -1,6 +1,7 @@
 '''
 Konstantinos Anastasakis
-Python Script for flight data management
+Python Scripts for marging of aeroplane and camera data
+Location v3-metfl2
 Version 0.3 For one camera file
 09/2017
 '''
@@ -18,12 +19,12 @@ camera_data = pd.read_csv(
     in_camera_data, sep='\t', encoding='utf-8')
 
 in_aircraft_data = open(
-    'THEMIS05-08-17-A.tab', 'r')
+    'flight_data-A.tab', 'r')
 aircraft_data = pd.read_csv(
     in_aircraft_data, sep='\t', encoding='utf-8', skiprows=[0, 2])
 
 
-# GPG
+# .jpg Name extension fix
 split_name = camera_data[
     'File'].apply(lambda x: x.split('.'))
 
@@ -60,7 +61,7 @@ camera_data['Time'] = camera_data['Time Milis'].map(
     lambda t: t.strftime('%H:%M:%S')) # noqa
 
 
-# Data connection
+# Merge data 
 results = pd.merge(
     camera_data, aircraft_data, on='Time')
 
